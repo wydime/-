@@ -1,0 +1,45 @@
+import numpy as np
+from numpy.linalg import *
+import matplotlib.pyplot as plt
+import math
+import  random
+
+def create_2Dgauss(mu,sigma,sampleNo):
+    r=cholesky(sigma)
+    s=np.dot(np.random.randn(sampleNo,2),r)+mu
+    return s
+###三个高斯的均值和协方差矩阵参数
+mu1=np.array([1,1])
+sigma1=np.array([[2,1],[1,2]])
+mu2=np.array([5,5])
+sigma2=np.array([[2,-1],[-1,2]])
+mu3=np.array([8,10])
+sigma3=np.array([[4,-2],[-2,4]])
+####创建两个不同的混合比例
+weight1=[0.3,0,1,0.6]
+weight2=[0.7,0.2,0.1]
+####根据比例，随机生成选择哪个高斯
+list=[0,1,2]
+#gaussNo[]  存储第几个高斯，生成随机点
+gaussNo1=[]
+gaussNo2=[]
+#使用系统函数nprandom.choce()加权随机
+gaussNo1=(np.random.choice(list,1000,weight1)).tolist()
+gaussNo2=(np.random.choice(list,1000,weight2)).tolist()
+#得到使用第一组高斯混合系数，生成的随机点
+s1=create_2Dgauss(mu1,sigma1,gaussNo1.count(0))
+s2=create_2Dgauss(mu2,sigma2,gaussNo1.count(1))
+s3=create_2Dgauss(mu3,sigma3,gaussNo1.count(2))
+plt.subplot(121)
+plt.plot(s1[:,0],s1[:,1],'+')
+plt.plot(s2[:,0],s2[:,1],'+')
+plt.plot(s3[:,0],s3[:,1],'+')
+#得到使用第一组高斯混合系数，生成的随机点
+s1=create_2Dgauss(mu1,sigma1,gaussNo2.count(0))
+s2=create_2Dgauss(mu2,sigma2,gaussNo2.count(1))
+s3=create_2Dgauss(mu3,sigma3,gaussNo2.count(2))
+plt.subplot(122)
+plt.plot(s1[:,0],s1[:,1],'+')
+plt.plot(s2[:,0],s2[:,1],'+')
+plt.plot(s3[:,0],s3[:,1],'+')
+plt.show()
