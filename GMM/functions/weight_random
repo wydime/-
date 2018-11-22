@@ -1,0 +1,24 @@
+"按照权重生成随机数"
+'''
+list   目标列表  类型（list）
+weight 权重列表  类型（list）
+N      数目      类型（int） 
+'''
+def weight_random(list,weight,N):
+    R=[]
+    weight=np.array(weight)
+    weight=weight/sum(weight)
+    weight=np.cumsum(weight)
+    for n in range(N):
+        rndint = random.random()
+        for  i in range(len(weight)):
+            if rndint<weight[i]:
+                R.append(list[i])
+                break
+    return R
+#测试部分
+list=['A','B','C']
+R=weight_random(list,[3,1,6],1000)
+print("A的概率",R.count('A')/len(R),"A的数目为",R.count('A'))
+print("B的概率",R.count('B')/len(R),"B的数目为",R.count('B'))
+print("C的概率",R.count('C')/len(R),"C的数目为",R.count('C'))
