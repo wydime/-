@@ -15,17 +15,13 @@ mu2=np.array([5,5])
 sigma2=np.array([[2,-1],[-1,2]])
 mu3=np.array([8,10])
 sigma3=np.array([[4,-2],[-2,4]])
-####创建两个不同的混合比例
-weight1=[0.3,0,1,0.6]
-weight2=[0.7,0.2,0.1]
-####根据比例，随机生成选择哪个高斯
-list=[0,1,2]
+####根据不同的混合比例比例，随机生成选择哪个高斯
 #gaussNo[]  存储第几个高斯，生成随机点
+list=[0,1,2]
 gaussNo1=[]
 gaussNo2=[]
-#使用系统函数nprandom.choce()加权随机
-gaussNo1=(np.random.choice(list,1000,weight1)).tolist()
-gaussNo2=(np.random.choice(list,1000,weight2)).tolist()
+gaussNo1=(np.random.choice(list,1000,p=[0.8,0.1,0.1])).tolist()
+gaussNo2=(np.random.choice(list,1000,p=[0.1,0.1,0.8])).tolist()
 #得到使用第一组高斯混合系数，生成的随机点
 s1=create_2Dgauss(mu1,sigma1,gaussNo1.count(0))
 s2=create_2Dgauss(mu2,sigma2,gaussNo1.count(1))
